@@ -4,7 +4,7 @@ import aioboto3
 import json
 from app.core.config import settings
 
-def validate_and_clean_csv(file_path, landscape_id):
+def validate_and_clean_csv(file_path):
     try:
         # Read the CSV file
         df = pd.read_csv(file_path)
@@ -42,17 +42,23 @@ def validate_and_clean_csv(file_path, landscape_id):
         # df = df[df['keyword'].apply(is_valid_seo_keyword)]
 
         # Convert the cleaned dataframe to a JSON string
-        cleaned_data_json = df.to_json(orient='records')
+        # cleaned_data_json = df.to_json(orient='records')
 
-        # Save the JSON string to a file
-        keyword_file_name = gen_keyword_file_name(landscape_id)
-        output_file_path = 'storage/' + keyword_file_name
-        with open(output_file_path, 'w') as json_file:
-            json_file.write(cleaned_data_json)
-
-        return keyword_file_name
+        # # Save the JSON string to a file
+        # keyword_file_name = gen_keyword_file_name(landscape_id)
+        # output_file_path = 'storage/' + keyword_file_name
+        # with open(output_file_path, 'w') as json_file:
+        #     json_file.write(cleaned_data_json)
+        return df[['keyword', 'search_engine', 'device', 'country']]
     except Exception as e:
-        raise ValueError(f"Failed to validate and clean CSV file: {e}")
+        raise ValueError(f"Failed to validate and clean CSV file: {e}")    
+
+
+# A function that will take the dataframe and divide into chunks of 1000
+def divide_chunks(ids_list, n):
+    # looping till length l
+    for i in range(0, len(ids_list), n):
+        yield ids_list[i:i + n]
 
 async def save_file_s3(keyword_file_name):
     session = aioboto3.Session()

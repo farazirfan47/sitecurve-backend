@@ -20,6 +20,17 @@ class Settings(BaseSettings):
     AWS_DEFAULT_REGION: str
     AWS_BUCKET_NAME: str
 
+    CH_HOST: str
+    CH_USER: str
+    CH_PASSWORD: str
+
+    SERP_QUEUE_NAME: str
+    KEYWORD_QUEUE_NAME: str
+
+    MONGO_USER: str
+    MONGO_PASSWORD: str
+    MONGO_DB: str
+
     @computed_field  # type: ignore[misc]
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:

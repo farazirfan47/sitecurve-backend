@@ -8,8 +8,8 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
-    
-    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)   
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
     username = Column(String, unique=True, index=True)
@@ -22,8 +22,8 @@ class User(Base):
 class Landscape(Base):
     __tablename__ = "landscapes"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
-    owner_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
     name = Column(String, index=True)
     keyword_s3 = Column(String, unique=True, nullable=True)
     first_loaded = Column(Boolean, default=False)
