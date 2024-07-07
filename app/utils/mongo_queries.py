@@ -18,9 +18,7 @@ async def save_keywords_to_mongo(mongo_db, keywords_df):
                 item_obj = Keyword(**keyword)
                 keywords_objs.append(item_obj.model_dump(exclude=["id"]))
             except Exception as e:
-                raise ValueError(f"Failed to validate keyword: {e}")
-        
-        print(keywords_objs)
+                raise ValueError(f"Failed to validate keyword: {e}")        
         # Insert the data into the MongoDB collection
         await mongo_db.keywords.insert_many(keywords_objs)
         print("Keywords saved to MongoDB")

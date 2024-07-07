@@ -19,8 +19,8 @@ class Serp(BaseModel):
     breadcrumb: str = Field(...)
     website_type: Optional[str] = Field(None)
     business_model: Optional[str] = Field(None)
-    content_parse_status: Literal["P", "D", "F"] = Field("P")
-    openai_tag_status: Literal["P", "D", "F"] = Field("P")
+    content_parse_status: Literal["PENDING", "DONE", "FAILED"] = Field("PENDING")
+    openai_tag_status: Literal["PENDING", "DONE", "FAILED"] = Field("PENDING")
     created_at: datetime
     updated_at: datetime
 
